@@ -6,6 +6,7 @@ class Api::V1::Instances::RulesController < Api::BaseController
   before_action :set_rules
 
   def index
+    expires_in 5.minutes, public: true, stale_while_revalidate: 60.seconds, stale_if_error: 1.day
     render json: @rules, each_serializer: REST::RuleSerializer
   end
 

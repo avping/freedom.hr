@@ -6,7 +6,7 @@ class Api::V1::Instances::ActivityController < Api::BaseController
   skip_before_action :require_authenticated_user!, unless: :whitelist_mode?
 
   def show
-    expires_in 1.day, public: true
+    expires_in 5.minutes, public: true, stale_while_revalidate: 60.seconds, stale_if_error: 1.day
     render_with_cache json: :activity, expires_in: 1.day
   end
 
